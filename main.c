@@ -29,6 +29,8 @@ struct pessoa {
     char obs[500];
 };
 
+#define teste 1000
+
 int main(){
 
     return 0;
