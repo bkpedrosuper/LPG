@@ -29,6 +29,8 @@ typedef struct pessoa {
     char obs[500];
 }pessoa;
 
+#define teste 1000
+
 int main(){
 
     pessoa pessoas[100];
