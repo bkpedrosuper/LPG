@@ -31,5 +31,8 @@ struct pessoa {
 
 int main(){
 
+
+    printf("cu\n");
+
     return 0;
 }
