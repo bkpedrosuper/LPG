@@ -3,13 +3,13 @@
 
 typedef struct data {
     int dia,mes,ano;
-}data;
+};
 
 typedef struct telefone {
     char codInternacional[3];
     char codArea[3];
     char numero[9];
-}telefone;
+};
 
 typedef struct endereco {
     char rua[200];
@@ -18,7 +18,7 @@ typedef struct endereco {
     char bairro[100];
     int cep[100];
     char cidade[100];
-}endereco;
+};
 
 typedef struct pessoa {
     char nome[100];
@@ -27,7 +27,7 @@ typedef struct pessoa {
     telefone tele;
     data nascimento;
     char obs[500];
-}pessoa;
+};
 
 #define teste 1000
 
