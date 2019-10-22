@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <bilblioteca.h>
 
 void menu();
 void inserirPessoa();
@@ -41,6 +42,7 @@ pessoa pessoas[100];
 
 int main(){
 
+    print();
 
     menu();
 
@@ -97,6 +99,8 @@ void menu(){
 
 void inserirPessoa(){
     
+    printf("Nome da Pessoa: ");
+    // scanf("%s", &)
 }
 
 void removerPessoa(){

@@ -34,3 +34,8 @@ emita um relatório com os dados de todas as pessoas que comemoram aniversário 
 
 6. busca por dia e mês de aniversário: Imprime os dados de
 todas as pessoas que comemoram aniversário nesse dia e mês.
+
+# Lista duplamente encadeada
+
+https://br.ccm.net/faq/10254-lista-duplamente-encadeada
+
