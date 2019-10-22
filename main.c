@@ -1,6 +1,5 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <bilblioteca.h>
 
 void menu();
 void inserirPessoa();
@@ -25,8 +24,10 @@ typedef struct {
     int numero;
     char complemento[100];
     char bairro[100];
-    int cep[100];
+    char cep[100];
     char cidade[100];
+    char estado[100];
+    char pais[100];
 }endereco;
 
 typedef struct {
@@ -42,7 +43,6 @@ pessoa pessoas[100];
 
 int main(){
 
-    print();
 
     menu();
 
@@ -97,10 +97,53 @@ void menu(){
     }
 }
 
+// limpar o buffer do stdin
+void flush_in(){ 
+    int ch;
+    while( (ch = fgetc(stdin)) != EOF && ch != '\n' ){} 
+}
+
+// ler string
+void ler_string(char *s){
+    scanf("%[^\n]s", s);
+}
+
 void inserirPessoa(){
-    
+    pessoa nova;
+    pessoa *nov = (pessoa *) malloc(sizeof(pessoa));
+    flush_in();
     printf("Nome da Pessoa: ");
-    // scanf("%s", &)
+    ler_string(nov->nome);
+    // printf("%s \n", nova.nome);
+    flush_in();
+    printf("E-mail: ");
+    ler_string(nova.email);
+    // printf("%s \n", nova.email);
+    flush_in();
+    printf("Endereco \n\n");
+    printf("Rua: ");
+    ler_string(nova.ende.rua);
+    flush_in();
+    printf("Numero: ");
+    scanf("%i", &nova.ende.numero);
+    flush_in();
+    printf("Complemento: ");
+    ler_string(nova.ende.complemento);
+    flush_in();
+    printf("Bairro: ");
+    ler_string(nova.ende.bairro);
+    flush_in();
+    printf("CEP: ");
+    ler_string(nova.ende.cep);
+    flush_in();
+    printf("Cidade: ");
+    ler_string(nova.ende.cidade);
+    flush_in();
+    printf("Estado: ");
+    ler_string(nova.ende.estado);
+    flush_in();
+    printf("País: ");
+    ler_string(nova.ende.pais);
 }
 
 void removerPessoa(){

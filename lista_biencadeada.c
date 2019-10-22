@@ -53,11 +53,9 @@ void insere_ordenado(lista_dupla *lista, no *novo){
     no *i = lista->inicio;
     int x = novo->id;
     // while roda até achar o lugar pra colocar o novo nó
-    while(i != NULL && i->id<x) i = i->prox;
+    while(i != NULL  && i->id<x ) i = i->prox;
     // se n achar coloca no fim
-    if(i==NULL) insere(lista, novo);
-    // se achar coloca depois do q achou
-    else insere_depois(lista, i, novo);
+    insere_depois(lista, i, novo);
 }
 
 void exibe(lista_dupla *lista){
@@ -99,19 +97,14 @@ int main(){
     lista->fim = NULL;
     lista->tamanho = 0;
 
+    no *guarda = (no *) malloc(sizeof(no));
     // adicionando nós como ids
-    for(int i=1; i<=n; i++){
+    for(int i=4; i>0; i--){
         no *novo = (no *) malloc(sizeof(no));
         novo->id = i;
-        insere(lista, novo);
+        insere_ordenado(lista, novo);
     }
 
-    // adicionando um nó ordenado
-    no *outro = (no *) malloc(sizeof(no));
-    outro->id = 1;
-    
-    insere_ordenado(lista, outro);
-    exibe(lista);
-    remover(lista, outro);
+    printf("\n");
     exibe(lista);
 }
