@@ -17,20 +17,20 @@ f) Declarar a variável agenda (vetor) com capacidade de agendar até 100 nomes.
 
 # Criar um menu para:
 
-g) insere pessoa: Insere por ordem alfabética de nome.
+1. insere pessoa: Insere por ordem alfabética de nome.
 
-h) retira pessoa: retira todos os dados dessa pessoa e desloca
+2. retira pessoa: retira todos os dados dessa pessoa e desloca
 todos os elementos seguintes do vetor para a posição anterior.
 
-i) imprime agenda com as opções:
+3. imprime agenda com as opções:
 . imprime nome, telefone e e-mail
 . imprime todos os dados.
 
-j) busca por primeiro nome: Imprime os dados da pessoa
+4. busca por primeiro nome: Imprime os dados da pessoa
 com esse nome (se tiver mais de uma pessoa, imprime todas)
 
-k) busca por mês de aniversário: Escrever uma função que
+5. busca por mês de aniversário: Escrever uma função que
 emita um relatório com os dados de todas as pessoas que comemoram aniversário nesse mês.
 
-l) busca por dia e mês de aniversário: Imprime os dados de
+6. busca por dia e mês de aniversário: Imprime os dados de
 todas as pessoas que comemoram aniversário nesse dia e mês.
