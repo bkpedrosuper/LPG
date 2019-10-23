@@ -83,7 +83,7 @@ void menu(){
             imprimirAgenda();
             break;
         case 4:
-            b.ende.uscarPorNome();
+            buscarPorNome();
             break;
         case 5:
             imprimirMes();
@@ -142,32 +142,37 @@ void inserirPessoa(){
     printf("Estado: ");
     ler_string(nova.ende.estado);
     flush_in();
-    printf("País: \n");
+    printf("País: ");
     ler_string(nova.ende.pais);
 
-    printf("Pessoa adicionada com sucesso\n\n");
+    printf("Essa pessoa foi adicionada com Sucesso!\n\n ");
 
-    //teste geral
-    
     menu();
 }
 
 void removerPessoa(){
 
+    menu();
 }
 
 void imprimirAgenda(){
+    int i;
+    for(int i=0;i<)
 
+    menu();
 }
 
 void buscarPorNome(){
 
+    menu();
 }
 
 void imprimirMes(){
 
+    menu();
 }
 
 void buscarDataAniversario(){
 
+    menu();
 }
