@@ -4,6 +4,7 @@
 struct data {
     int dia,mes,ano;
     //teste
+    mais um teste hein
 };
 
 struct telefone {
