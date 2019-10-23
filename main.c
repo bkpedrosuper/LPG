@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -172,7 +171,6 @@ void imprimirMes(){
 void buscarDataAniversario(){
 
 }
-=======
 #include <stdio.h>
 #include <stdlib.h>
 #include "struct.c"
@@ -316,4 +314,3 @@ void buscarDataAniversario(){
 
     menu();
 }
->>>>>>> 4363983ace35e0cd08a0e64e67fca325c86fcf3d
