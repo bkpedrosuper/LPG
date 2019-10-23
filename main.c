@@ -3,6 +3,7 @@
 
 struct data {
     int dia,mes,ano;
+    //teste
 };
 
 struct telefone {
