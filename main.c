@@ -11,7 +11,6 @@ void buscarDataAniversario();
 
 typedef struct {
     int dia,mes,ano;
-    //testeeeekkkkkkkkkkkkkkk
 } data;
 
 typedef struct {
@@ -84,7 +83,7 @@ void menu(){
             imprimirAgenda();
             break;
         case 4:
-            buscarPorNome();
+            b.ende.uscarPorNome();
             break;
         case 5:
             imprimirMes();
@@ -151,7 +150,6 @@ void inserirPessoa(){
     //teste geral
     
     menu();
-
 }
 
 void removerPessoa(){
