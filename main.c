@@ -11,6 +11,7 @@ void buscarDataAniversario();
 
 typedef struct {
     int dia,mes,ano;
+    //testeeeekkkkkkkkkkkkkkk
 } data;
 
 typedef struct {
