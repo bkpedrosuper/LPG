@@ -37,6 +37,7 @@ typedef struct {
     telefone tele;
     data nascimento;
     char obs[500];
+    //teste
 }pessoa;
 
 pessoa pessoas[100];
