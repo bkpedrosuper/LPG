@@ -83,7 +83,7 @@ void menu(){
             imprimirAgenda();
             break;
         case 4:
-            b.ende.uscarPorNome();
+            buscarPorNome();
             break;
         case 5:
             imprimirMes();
