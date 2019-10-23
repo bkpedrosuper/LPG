@@ -10,8 +10,9 @@ void imprimirMes();
 void buscarDataAniversario();
 
 //testeeealoooieee
+///mais um teste
 
-typedef struct {
+typedef struct{
     int dia,mes,ano;
 } data;
 
