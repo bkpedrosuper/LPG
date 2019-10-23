@@ -1,5 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include "struct.c"
+// #include "lista_biencadeada.c"
 
 void menu();
 void inserirPessoa();
@@ -9,55 +11,14 @@ void buscarPorNome();
 void imprimirMes();
 void buscarDataAniversario();
 
-//testeeealoooieee
-///mais um teste
-
-typedef struct{
-    int dia,mes,ano;
-} data;
-
-typedef struct {
-    char codInternacional[3];
-    char codArea[3];
-    char numero[9];
-}telefone;
-
-typedef struct {
-    char rua[200];
-    int numero;
-    char complemento[100];
-    char bairro[100];
-    char cep[100];
-    char cidade[100];
-    char estado[100];
-    char pais[100];
-}endereco;
-
-typedef struct {
-    char nome[100];
-    char email[100];
-    endereco ende;
-    telefone tele;
-    data nascimento;
-    char obs[500];
-}pessoa;
-
-pessoa pessoas[100];
-
 int main(){
 
-
     menu();
-
-    // scanf("%[A-Z a-z]s", pessoas[0].nome);
-    // printf("%s\n", pessoas[0].nome);
 
     return 0;
 }
 
 void menu(){
-
-    
     printf("Escolha a ação desejada:\n\n");
     //item g
     printf("\t1.Inserir Pessoa.\n");
@@ -101,9 +62,9 @@ void menu(){
 }
 
 // limpar o buffer do stdin
-void flush_in(){ 
+void flush_in(){
     int ch;
-    while( (ch = fgetc(stdin)) != EOF && ch != '\n' ){} 
+    while( (ch = fgetc(stdin)) != EOF && ch != '\n' ){}
 }
 
 // ler string
@@ -115,6 +76,7 @@ void inserirPessoa(){
     pessoa nova;
     pessoa *nov = (pessoa *) malloc(sizeof(pessoa));
     flush_in();
+    printf("\n\tEndereco \n\n");
     printf("Nome da Pessoa: ");
     ler_string(nov->nome);
     // printf("%s \n", nova.nome);
@@ -123,7 +85,7 @@ void inserirPessoa(){
     ler_string(nova.email);
     // printf("%s \n", nova.email);
     flush_in();
-    printf("Endereco \n\n");
+    printf("\n\tEndereco \n\n");
     printf("Rua: ");
     ler_string(nova.ende.rua);
     flush_in();
@@ -160,7 +122,7 @@ void removerPessoa(){
 
 void imprimirAgenda(){
     int i;
-    for(int i=0;i<)
+    // for(int i=0;i<)
 
     menu();
 }
