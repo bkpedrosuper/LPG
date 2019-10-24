@@ -1,12 +1,12 @@
 typedef struct{
-    int dia,mes,ano;
-} data;
+    char dia[4],mes[4],ano[8];
+}Data;
 
 typedef struct {
     char codInternacional[3];
     char codArea[3];
     char numero[9];
-}telefone;
+}Telefone;
 
 typedef struct {
     char rua[200];
@@ -17,13 +17,13 @@ typedef struct {
     char cidade[100];
     char estado[100];
     char pais[100];
-}endereco;
+}Endereco;
 
 typedef struct {
     char nome[100];
     char email[100];
-    endereco ende;
-    telefone tele;
-    data nascimento;
+    Endereco endereco;
+    Telefone telefone;
+    Data nascimento;
     char obs[500];
 }pessoa;

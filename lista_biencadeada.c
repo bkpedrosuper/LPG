@@ -2,9 +2,6 @@
 #include <stdlib.h>
 #include <string.h>
 
-void print(){
-    printf("ola caralho\n");
-}
 
 // estrutura do nó guardando os dados, o nó anterior e o próximo nó da lista
 struct nodo {
@@ -64,20 +61,25 @@ void insere_ordenado(lista_dupla *lista, no *novo){
     else insere_depois(lista, i, novo);
 }
 
-void insere_ordenado_nome(lista_dupla *lista,no *novo){
-    // insere um nó mantendo a lista ordenada
+void insere_ordenado_nome(lista_dupla *lista, no *novo){
+    // insere um nó mantendo a lista ordenada pelo nome
     no *i = lista->inicio;
     char *a=novo->nome;
-    while(i != NULL && strcmp(a,i->nome)>0) i = i->prox;
-
+    while(i != NULL && strcoll(a,i->nome)<0) i = i->prox;
+    // se n achar coloca no fim
+    if(i==NULL)insere(lista, novo);
+    else insere_depois(lista, i, novo);
 }
 
 
-void buscar_nome(lista_dupla *lista, char *c){
+no *busca_nome(lista_dupla *lista, char *c){
     no *i = lista->inicio;
     while (i != NULL && strcmp(i->nome, c)!=0) i = i->prox;
-    if(i==NULL) printf("Não achado\n");
-    else printf("id com o nome buscado: %i\n", i->id);
+    if(i==NULL){
+        printf("Não achado\n");
+        return 0;
+    } 
+    else return i;
 }
 
 void exibe(lista_dupla *lista){
@@ -109,30 +111,27 @@ void remover(lista_dupla *lista, no *remover){
     lista->tamanho--;
 }
 
+
 int main(){
     int n=4;
     // inicialização da lista
     lista_dupla *lista = (lista_dupla *) malloc(sizeof(lista_dupla));
     lista->inicio = NULL;
     lista->fim = NULL;
-    lista->tamanho = 0;
+    lista->tamanho = 0;    
 
-    no *guarda = (no *) malloc(sizeof(no));
+    no *primeiro = (no *)malloc(sizeof(no));
+    primeiro->id = 0;
+    strcpy(primeiro->nome,"aaaa");
+    insere_ordenado_nome(lista, primeiro);
+
     // adicionando nós como ids
     for(int i=1; i<=4; i++){
         no *novo = (no *) malloc(sizeof(no));
         novo->id = i;
         scanf("%s", novo->nome);
-        insere(lista, novo);
+        insere_ordenado_nome(lista, novo);
     }
-    exibe(lista);
-
-    no *outro = (no *) malloc(sizeof(no));
-    outro->id = 9;
-    //outro->
-    char nomezi[10];
-    scanf("%s", nomezi);
-    buscar_nome(lista,nomezi);
     exibe(lista);
 
 }
