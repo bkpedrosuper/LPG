@@ -1,5 +1,9 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
+
+//teste
+
 
 // estrutura do nó guardando os dados, o nó anterior e o próximo nó da lista
 struct nodo {
@@ -38,7 +42,7 @@ void insere(lista_dupla *lista, no *novo)
 void insere_depois(lista_dupla *lista, no *antes, no *novo)
 {
     // insere o nó novo depois de um determinado nó "antes"
-    if(antes==lista->fim) insere(lista, novo); // se este nó for o fim da lista adiciona no fim
+    if(antes->prox==NULL) insere(lista, novo); // se este nó for o fim da lista adiciona no fim
     else{
         novo->prox = antes->prox;
         novo->ant = antes;
@@ -53,20 +57,40 @@ void insere_ordenado(lista_dupla *lista, no *novo){
     no *i = lista->inicio;
     int x = novo->id;
     // while roda até achar o lugar pra colocar o novo nó
-    while(i != NULL  && i->id<x ) i = i->prox;
+    while(i != NULL && i->id<x) i = i->prox;
     // se n achar coloca no fim
-    insere_depois(lista, i, novo);
+    if(i==NULL)insere(lista, novo);
+    else insere_depois(lista, i, novo);
+}
+
+void insere_ordenado_nome(lista_dupla *lista, no *novo){
+    // insere um nó mantendo a lista ordenada pelo nome
+    no *i = lista->inicio;
+    char *a=novo->nome;
+    while(i != NULL && strcoll(a,i->nome)<0) i = i->prox;
+    // se n achar coloca no fim
+    if(i==NULL)insere(lista, novo);
+    else insere_depois(lista, i, novo);
+}
+
+
+no *busca_nome(lista_dupla *lista, char *c){
+    no *i = lista->inicio;
+    while (i != NULL && strcmp(i->nome, c)!=0) i = i->prox;
+    if(i==NULL){
+        printf("Não achado\n");
+        return 0;
+    } 
+    else return i;
 }
 
 void exibe(lista_dupla *lista){
     //printa toda a lista
     no *i = lista->inicio;
-    printf("[ ");
     while(i != NULL){
-        printf("%i ",i->id);
+        printf("%i %s\n",i->id, i->nome);
         i = i->prox;
     }
-    printf("]\n");
 }
 
 void remover(lista_dupla *lista, no *remover){
@@ -89,22 +113,27 @@ void remover(lista_dupla *lista, no *remover){
     lista->tamanho--;
 }
 
+
 int main(){
     int n=4;
     // inicialização da lista
     lista_dupla *lista = (lista_dupla *) malloc(sizeof(lista_dupla));
     lista->inicio = NULL;
     lista->fim = NULL;
-    lista->tamanho = 0;
+    lista->tamanho = 0;    
 
-    no *guarda = (no *) malloc(sizeof(no));
+    no *primeiro = (no *)malloc(sizeof(no));
+    primeiro->id = 0;
+    strcpy(primeiro->nome,"aaaa");
+    insere_ordenado_nome(lista, primeiro);
+
     // adicionando nós como ids
-    for(int i=4; i>0; i--){
+    for(int i=1; i<=4; i++){
         no *novo = (no *) malloc(sizeof(no));
         novo->id = i;
-        insere_ordenado(lista, novo);
+        scanf("%s", novo->nome);
+        insere_ordenado_nome(lista, novo);
     }
-
-    printf("\n");
     exibe(lista);
+
 }
