@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-int tam=0;
+int contid=1;
 
 
 // estrutura do nó guardando os dados, o nó anterior e o próximo nó da lista
@@ -141,10 +141,9 @@ void remover(lista_dupla *lista, no *remover){
 
 void inserir(lista_dupla *lista){
     no *novo = (no *) malloc(sizeof(no));
-    novo->id = tam;
-    
+    novo->id = contid;
+    contid++;
     scanf("%s", novo->nome);
-    tam++;
     insere_ordenado_nome(lista, novo);
 }
 
