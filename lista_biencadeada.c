@@ -2,6 +2,8 @@
 #include <stdlib.h>
 #include <string.h>
 
+int contid=1;
+
 
 // estrutura do nó guardando os dados, o nó anterior e o próximo nó da lista
 struct nodo {
@@ -60,16 +62,41 @@ void insere_ordenado(lista_dupla *lista, no *novo){
     if(i==NULL)insere(lista, novo);
     else insere_depois(lista, i, novo);
 }
+void ordena_primeiro(lista_dupla *lista, no *novo){
+    char *aux[50];
+    int idaux;
+    no *i = lista->inicio;
+    char *a=novo->nome;
+    while(i != NULL){
+        if(strcoll(a,i->nome)<0){
+            //atualiza os nomes
+            strcpy(*aux,novo->nome);
+            strcpy(novo->nome, i->nome);
+            strcpy(i->nome, *aux);
+            
+            //atualiza id
+            idaux = novo->id;
+            novo->id = i->id;
+            i->id = idaux;
+        }
+        i = i->prox;
+    } 
+}
 
 void insere_ordenado_nome(lista_dupla *lista, no *novo){
     // insere um nó mantendo a lista ordenada pelo nome
     no *i = lista->inicio;
     char *a=novo->nome;
-    while(i != NULL && strcoll(i->nome, a)<0) i = i->prox;
+    while(i != NULL && strcoll(a,i->nome)>=0) i = i->prox;
     // se n achar coloca no fim
     if(i==NULL)insere(lista, novo);
     else insere_depois(lista, i, novo);
+    ordena_primeiro(lista,lista->inicio);
 }
+
+// void ordena(lista){
+//     no *i=lista->inicio;
+// }
 
 
 no *busca_nome(lista_dupla *lista, char *c){
@@ -83,6 +110,7 @@ no *busca_nome(lista_dupla *lista, char *c){
 }
 
 void exibe(lista_dupla *lista){
+    
     //printa toda a lista
     no *i = lista->inicio;
     while(i != NULL){
@@ -111,6 +139,13 @@ void remover(lista_dupla *lista, no *remover){
     lista->tamanho--;
 }
 
+void inserir(lista_dupla *lista){
+    no *novo = (no *) malloc(sizeof(no));
+    novo->id = contid;
+    contid++;
+    scanf("%s", novo->nome);
+    insere_ordenado_nome(lista, novo);
+}
 
 int main(){
     int n=4;
@@ -122,21 +157,25 @@ int main(){
 
     no *primeiro = (no *)malloc(sizeof(no));
     primeiro->id = 0;
-    strcpy(primeiro->nome,"a");
+    strcpy(primeiro->nome,"aaaa");
     insere_ordenado_nome(lista, primeiro);
 
-    // no *segundo = (no *)malloc(sizeof(no));
-    // segundo->id = 8;
-    // strcpy(segundo->nome,"b");
-    // insere_ordenado_nome(lista, segundo);
-
+    //O QUE ESTÁ DANDO ERRADO É O NO *NOVO = (NO *)... POIS ELE ESTÁ SALVANDO TODOS NO MESMO ENDEREÇO. POR ISSO QUE SÓ ORDENA UM DELES, PORQUE COLOCA ESSE COMO O UNICO E ORDENA
     // adicionando nós como ids
     for(int i=1; i<=4; i++){
-        no *novo = (no *) malloc(sizeof(no));
-        novo->id = i;
-        scanf("%s", novo->nome);
-        insere_ordenado_nome(lista, novo);
+        inserir(lista);
     }
+
+    // for(int i=1; i<=4; i++){
+    //     no *novo = (no *) malloc(sizeof(no));
+    //     novo->id = i;
+    //     scanf("%s", novo->nome);
+    //     insere_ordenado_nome(lista, novo);
+    // }
     exibe(lista);
+    remover(lista,lista->inicio);
+    printf("\n");
+    exibe(lista);
+    return 0;
 
 }
