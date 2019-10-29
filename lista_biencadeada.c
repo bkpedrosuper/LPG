@@ -65,7 +65,7 @@ void insere_ordenado_nome(lista_dupla *lista, no *novo){
     // insere um nó mantendo a lista ordenada pelo nome
     no *i = lista->inicio;
     char *a=novo->nome;
-    while(i != NULL && strcoll(a,i->nome)<0) i = i->prox;
+    while(i != NULL && strcoll(i->nome, a)<0) i = i->prox;
     // se n achar coloca no fim
     if(i==NULL)insere(lista, novo);
     else insere_depois(lista, i, novo);
@@ -122,8 +122,13 @@ int main(){
 
     no *primeiro = (no *)malloc(sizeof(no));
     primeiro->id = 0;
-    strcpy(primeiro->nome,"aaaa");
+    strcpy(primeiro->nome,"a");
     insere_ordenado_nome(lista, primeiro);
+
+    // no *segundo = (no *)malloc(sizeof(no));
+    // segundo->id = 8;
+    // strcpy(segundo->nome,"b");
+    // insere_ordenado_nome(lista, segundo);
 
     // adicionando nós como ids
     for(int i=1; i<=4; i++){
