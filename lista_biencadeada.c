@@ -155,7 +155,7 @@ int main(){
     lista->fim = NULL;
     lista->tamanho = 0;    
 
-    no *primeiro = (no *)malloc(sizeof(no));
+    no *primeiro = (no *) malloc(sizeof(no));
     primeiro->id = 0;
     strcpy(primeiro->nome,"aaaa");
     insere_ordenado_nome(lista, primeiro);

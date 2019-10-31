@@ -5,7 +5,7 @@ typedef struct{
 typedef struct {
     char codInternacional[3];
     char codArea[3];
-    char numero[9];
+    char numero[15];
 }Telefone;
 
 typedef struct {
@@ -26,4 +26,5 @@ typedef struct {
     Telefone telefone;
     Data nascimento;
     char obs[500];
+    int id;
 }pessoa;

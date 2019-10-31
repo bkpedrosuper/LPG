@@ -1,40 +1,52 @@
 #include <stdio.h>
-#include<string.h>
+#include <string.h>
 #include <stdlib.h>
+#include <ctype.h>
+#include <time.h>
+//#include "vetor.c"
 
+void print(char *s){
+    printf("%s\n", s);
+}
+char *lowercase(char *str){
+    int i;
+    char *comp = (char*) malloc(strlen(str)*sizeof(char));
+    strcpy(comp,str);
+    for(i=0;i<strlen(str);i++){
+        comp[i] = tolower(comp[i]);
+    }
+    print(comp);
+    return comp;
+}
+
+int n = 4;
 typedef struct
 {
     char nome[50];
 }string;
 
+
 string v[4];
+void ler_string(char *s){
+    scanf("%[^\n]s", s);
+}
 
 int main(void){
-    // char nome1[10]="bb";
-    // char nome2[10]="aa";
-    // printf("%d\n", strcoll("aa","zz"));
+    srand(time(0));
+
+    printf("%d\n", strcoll("za", "zo"));
+    print(lowercase("ZAAAAAROLHO"));
+    int a=01;
+    int b=1;
+    if(a==b)    printf("True");
 
 
-    for(int i=0; i<4; i++){
-        scanf("%s", v[i].nome);
-    }
+    // for(int i=0; i<4; i++){
+    //     scanf("%s", v[i].nome);
+    // }
 
-    // ta funcionando o select sort
-    for(int i=0; i<4; i++){
-        int posj=i;
-        for(int j=i; j<4; j++){
-            if(strcoll(v[posj].nome, v[j].nome)>0){
-                posj = j;
-            }    
-        }
-        string aux2;
-        strcpy(aux2.nome, v[i].nome);
-        strcpy(v[i].nome,v[posj].nome);
-        strcpy(v[posj].nome, aux2.nome);
-    }
-
-    for(int i=0; i<4; i++){
-        printf("%s\n", v[i].nome);
-    }
+    // for(int i=0; i<4; i++){
+    //     printf("%s\n", v[i].nome);
+    // }
 
 }
