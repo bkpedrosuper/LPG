@@ -8,6 +8,8 @@ int total = 0;
 void print(char *s);
 void inserir(pessoa nova);
 void exibir();
+void saveData(pessoa *lista);
+void uploadData(pessoa *lista);
 void ordena();
 void printDados(pessoa printar);
 
@@ -21,7 +23,6 @@ void inserir(pessoa nova){
     pessoas[total] = nova;
     total++;
     ordena();
-
 }
 
 void exibir(){
@@ -41,6 +42,7 @@ void exibirTudo(){
     int i;
     for (i=0; i<total; i++){
         printDados(pessoas[i]);
+        printf("\n");
     }
 }
 
@@ -69,6 +71,7 @@ void ordena(){
         strcpy(pessoas[i].nome,pessoas[posj].nome);
         strcpy(pessoas[posj].nome, aux2);
     }
+    saveData(pessoas);
 }
 
 void buscaLista(char *busca){
@@ -102,7 +105,7 @@ void printDados(pessoa printar){
     print(printar.endereco.estado);
     printf("País: ");
     print(printar.endereco.pais);
-    printf("\n\tTelefone \n\n");
+    printf("\n\tTelvoid saveData(pessoa *lista)efone \n\n");
     printf("Código Internacional: ");
     print(printar.telefone.codInternacional);
     printf("Código de área: ");
@@ -120,57 +123,48 @@ void printDados(pessoa printar){
     print(printar.obs);
 }
 
+//le os dados do arquivo
 void uploadData(pessoa *lista){
-    FILE *upload;
-    if((save=fopen("/home/udesc/Documentos/sla/LPG/save.txt", "r+"))==NULL)  printf("Erro para carregar as informações\n");
+    FILE *save;
+    int i;
+    if((save=fopen("save.txt", "r+"))==NULL)  printf("Erro para carregar as informações\n");
     else{
-        for(i=0;i<total;i++){
-            fprint(save, "%i",lista[i].id);
-            fprint(save, "%s",lista[i].nome);
-            fprint(save, "%s",lista[i].email);
-            fprint(save, "%s",lista[i].endereco.rua);
-            fprint(save, "%s",lista[i].endereco.complemento);
-            fprint(save, "%s",lista[i].endereco.bairro);
-            fprint(save, "%s",lista[i].endereco.cep);
-            fprint(save, "%s",lista[i].endereco.cidade);
-            fprint(save, "%s",lista[i].endereco.estado);
-            fprint(save, "%s",lista[i].endereco.pais);
-            fprint(save, "%s",lista[i].telefone.codInternacional);
-            fprint(save, "%s",lista[i].telefone.codArea);
-            fprint(save, "%s",lista[i].telefone.numero);
-            fprint(save, "%s",lista[i].nascimento.dia);
-            fprint(save, "%s",lista[i].nascimento.mes);
-            fprint(save, "%s",lista[i].nascimento.ano);
-            fprint(save, "%s",lista[i].obs);
-        }
+        fread(&total,sizeof(int),1,save);
+        fread(lista,sizeof(pessoa),total,save);
+        // for(i=0;i<total;i++){
+        //     fread(&lista[i].id, sizeof(int),1,save);
+        //     fread(lista[i].nome, 103*sizeof(char),1,save);
+        //     fread(lista[i].email, 103*sizeof(char),1,save);
+        //     fread(lista[i].endereco.rua, 103*sizeof(char),1,save);
+        //     fread(lista[i].endereco.complemento, 103*sizeof(char),1,save);
+        //     fread(lista[i].endereco.bairro, 103*sizeof(char),1,save);
+        //     fread(lista[i].endereco.cep, 103*sizeof(char),1,save);
+        //     fread(lista[i].endereco.cidade, 103*sizeof(char),1,save);
+        //     fread(lista[i].endereco.estado, 103*sizeof(char),1,save);
+        //     fread(lista[i].endereco.pais, 103*sizeof(char),1,save);
+        //     fread(lista[i].telefone.codInternacional, 103*sizeof(char),1,save);
+        //     fread(save, 103*sizeof(char),1,save);
+        //     fread(lista[i].telefone.codArea, 103*sizeof(char),1,save);
+        //     fread(lista[i].nascimento.dia, 103*sizeof(char),1,save);
+        //     fread(lista[i].nascimento.mes, 103*sizeof(char),1,save);
+        //     fread(lista[i].nascimento.ano, 103*sizeof(char),1,save);
+        //     fread(lista[i].obs, 103*sizeof(char),1,save);
+        // }
         fclose(save);
     }
 }
 
+//salva os dados no arquivo
 void saveData(pessoa *lista){
     FILE *save;
     int i;
-    if((save=fopen("/home/udesc/Documentos/sla/LPG/save.txt", "w+"))==NULL)  printf("Erro para salvar as informações\n");
-    else{
-        for(i=0;i<total;i++){
-            fprint(save, "%i",lista[i].id);
-            fprint(save, "%s",lista[i].nome);
-            fprint(save, "%s",lista[i].email);
-            fprint(save, "%s",lista[i].endereco.rua);
-            fprint(save, "%s",lista[i].endereco.complemento);
-            fprint(save, "%s",lista[i].endereco.bairro);
-            fprint(save, "%s",lista[i].endereco.cep);
-            fprint(save, "%s",lista[i].endereco.cidade);
-            fprint(save, "%s",lista[i].endereco.estado);
-            fprint(save, "%s",lista[i].endereco.pais);
-            fprint(save, "%s",lista[i].telefone.codInternacional);
-            fprint(save, "%s",lista[i].telefone.codArea);
-            fprint(save, "%s",lista[i].telefone.numero);
-            fprint(save, "%s",lista[i].nascimento.dia);
-            fprint(save, "%s",lista[i].nascimento.mes);
-            fprint(save, "%s",lista[i].nascimento.ano);
-            fprint(save, "%s",lista[i].obs);
-        }
-        fclose(save);
-    }
+    remove("save.txt");
+    // if((save=fopen("save.txt", "w+"))==NULL)  printf("Erro para salvar as informações1\n");
+    // else{
+    //     fprintf(save,"%i",total);
+    //     fwrite(lista,sizeof(pessoa),total,save);
+    //     fclose(save);
+    //
+    // }
+    // fclose(save);
 }
