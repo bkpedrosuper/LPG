@@ -15,6 +15,8 @@ void buscarDataAniversario();
 
 int main(){
 
+    uploadData(pessoas);
+    printf("%i", pessoas[0].id);
     menu();
 
     return 0;
@@ -93,7 +95,7 @@ void inserirPessoa(){
     ler_string(nova.endereco.rua);
     flush_in();
     printf("Numero: ");
-    scanf("%s", nova.endereco.numero);
+    scanf("%i", &nova.endereco.numero);
     flush_in();
     printf("Complemento: ");
     ler_string(nova.endereco.complemento);
@@ -148,6 +150,7 @@ void removerPessoa(){
     flush_in();
     printf("Nome da pessoa a ser excluida da lista: ");
     ler_string(nome);
+    saveData(pessoas);
 
 }
 
