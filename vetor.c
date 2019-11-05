@@ -6,11 +6,22 @@ pessoa pessoas[100];
 int total = 0;
 
 void print(char *s);
+void buscaMes(char *s);
 void inserir(pessoa nova);
 void exibir();
 void ordena();
 void printDados(pessoa printar);
 void printParcial(pessoa print);
+
+void buscaMes(char *s){
+    int i;
+    printf("Pessoas que nasceram no mes %s:\n", &s);
+    for (i=0; i<total; i++){
+        if(pessoas[i].nascimento.mes==s){
+            printDados(pessoas[i]);
+        }
+    }
+}
 
 void print(char *s){
     printf("%s\n", s);
@@ -80,6 +91,8 @@ void ordena(){
 
 int buscaLista(char *nome){
     int i,flag = 0;
+
+    printf("\n\tPessoas achadas com esse nome:\n\n");
     for (i=0; i<total; i++){
         if(strcmp(lowercase(nome), lowercase(pessoas[i].nome))==0){
             printParcial(pessoas[i]);
