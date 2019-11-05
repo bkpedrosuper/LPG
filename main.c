@@ -195,6 +195,11 @@ void imprimirMes(){
     char n[4];
     ler_string(n);
 
+    buscaMes(n);
+    printf("Aperte enter para outra operação.\n");
+    flush_in();
+    getchar();
+
     menu();
 }
 
