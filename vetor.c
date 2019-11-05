@@ -10,6 +10,7 @@ void inserir(pessoa nova);
 void exibir();
 void ordena();
 void printDados(pessoa printar);
+void printParcial(pessoa print);
 
 void print(char *s){
     printf("%s\n", s);
@@ -25,16 +26,22 @@ void inserir(pessoa nova){
 }
 
 void exibir(){
+
+    printf("\n\t-------------Lista Telefonica:-------------\n\n");
     int i;
     for (i=0; i<total; i++){ 
-        printf("%d %s %s (%s) %s %s", pessoas[i].id, 
-                                      pessoas[i].nome, 
-                                      pessoas[i].telefone.codInternacional, 
-                                      pessoas[i].telefone.codArea, 
-                                      pessoas[i].telefone.numero, 
-                                      pessoas[i].email);
+        printParcial(pessoas[i]);
     }
     printf("\n");
+}
+
+void printParcial(pessoa printar){
+    printf("%d %s %s (%s) %s %s\n", printar.id, 
+                                    printar.nome, 
+                                    printar.telefone.codInternacional, 
+                                    printar.telefone.codArea, 
+                                    printar.telefone.numero, 
+                                    printar.email);
 }
 
 void exibirTudo(){
@@ -71,13 +78,36 @@ void ordena(){
     }
 }
 
-void buscaLista(char *busca){
-    int i;
+int buscaLista(char *nome){
+    int i,flag = 0;
     for (i=0; i<total; i++){
-        if(strcmp(lowercase(busca), lowercase(pessoas[i].nome))==0){
-            printDados(pessoas[i]);
+        if(strcmp(lowercase(nome), lowercase(pessoas[i].nome))==0){
+            printParcial(pessoas[i]);
+            flag = 1;
         }
     }
+    if (!flag){
+        printf("Pessoa não encontrada nos registros!\n");
+        return 0;
+    }
+}
+
+void excluirPessoa(char *nome){
+    int i,id_remover;
+    buscaLista(nome);
+    printf("Digite o id da pessoa a ser excluida\n");
+    scanf("%i", &id_remover);
+    for (i=0; i<total; i++){
+        if(pessoas[i].id==id_remover){
+            break;
+        }
+    }
+    int j;
+    pessoa aux;
+    for(j=i; j<total-1; j++){
+        pessoas[i] = pessoas[i+1];
+    }
+    total--;
 }
 
 void printDados(pessoa printar){

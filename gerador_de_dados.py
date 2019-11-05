@@ -1,22 +1,38 @@
 from random import randint,random,randrange,choice
 
-numero_de_pessoas = 4
+numero_de_pessoas = 5
+
+vogais = [97,101,111,117]
 
 for c in range(numero_de_pessoas):
     print(1)
 
     n_letras = randint(3,7)
     nome = ''
+    letra = randint(97,122)
+    
     for i in range(n_letras):
-        nome += chr(randint(97,122))
+        if not letra in vogais:
+            letra = choice(vogais)
+            nome += chr(letra)
+        else:
+            letra = randint(97,122)
+            nome += chr(letra)
+
     
     n_sobrenomes = randint(1,2)
 
+    letra = randint(97,122)
     for i in range(n_sobrenomes):
         nome += ' '
         sobrenome = ''
         for i in range(n_letras):
-            sobrenome += chr(randint(97,122))
+            if not letra in vogais:
+                letra = choice(vogais)
+                sobrenome += chr(letra)
+            else:
+                letra = randint(97,122)
+                sobrenome += chr(letra)
         nome += sobrenome
     
     nome = nome.title()
@@ -70,10 +86,21 @@ for c in range(numero_de_pessoas):
     for i in range(n_lero_lero):
         if i!=0:
             lero_lero += ' '
+        
         palavra = ''
+        letra = randint(97,122)
         for i in range(n_letras):
-            palavra += chr(randint(97,122))
+            if not letra in vogais:
+                letra = choice(vogais)
+                palavra += chr(letra)
+            else:
+                letra = randint(97,122)
+                palavra += chr(letra)
         lero_lero += palavra
         
     lero_lero += '.'
     print(lero_lero[1].upper() + lero_lero)
+
+print(3)
+print(1)
+

@@ -138,7 +138,7 @@ void inserirPessoa(){
 
     inserir(nova);
 
-    printf("\n\tPessoa adicionada com sucesso--------\n\n");
+    printf("\n\t--------Pessoa adicionada com sucesso--------\n\n");
 
     menu();
 }
@@ -148,13 +148,15 @@ void removerPessoa(){
     flush_in();
     printf("Nome da pessoa a ser excluida da lista: ");
     ler_string(nome);
+    excluirPessoa(nome);
 
+    menu();
 }
 
 void imprimirAgenda(){
     printf("\nImprimir:");
     printf("\n\t1. Nome, Telefone e E-mail");
-    printf("\n\t2.Todos os dados\n\n");
+    printf("\n\t2. Todos os dados\n\n");
     int n;
     flush_in();
     scanf("%i",&n);
@@ -164,7 +166,7 @@ void imprimirAgenda(){
         exibir();
         break;
     case 2:
-        exibir();
+        exibirTudo();
         break;
 
     default:
@@ -173,6 +175,7 @@ void imprimirAgenda(){
     printf("Aperte enter para outra operação.\n");
     flush_in();
     getchar();
+
     menu();
 }
 
@@ -182,6 +185,8 @@ void buscarPorNome(){
     char busca[100];
     ler_string(busca);
     buscaLista(busca);
+
+    menu();
 }
 
 void imprimirMes(){
@@ -189,6 +194,8 @@ void imprimirMes(){
     flush_in();
     char n[4];
     ler_string(n);
+
+    menu();
 }
 
 void buscarDataAniversario(){
@@ -204,4 +211,6 @@ void buscarDataAniversario(){
     printf("Ano: ");
     flush_in();
     ler_string(ano);
+
+    menu();
 }

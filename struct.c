@@ -3,8 +3,8 @@ typedef struct{
 }Data;
 
 typedef struct {
-    char codInternacional[3];
-    char codArea[3];
+    char codInternacional[4];
+    char codArea[4];
     char numero[15];
 }Telefone;
 
