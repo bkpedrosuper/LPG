@@ -3,9 +3,9 @@ typedef struct{
 }Data;
 
 typedef struct {
-    char codInternacional[3];
-    char codArea[3];
-    char numero[9];
+    char codInternacional[4];
+    char codArea[4];
+    char numero[15];
 }Telefone;
 
 typedef struct {
@@ -26,4 +26,5 @@ typedef struct {
     Telefone telefone;
     Data nascimento;
     char obs[500];
+    int id;
 }pessoa;

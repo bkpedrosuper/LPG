@@ -1,6 +1,9 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
+#include <ctype.h>
 #include "struct.c"
+#include "vetor.c"
 
 void menu();
 void inserirPessoa();
@@ -9,8 +12,6 @@ void imprimirAgenda();
 void buscarPorNome();
 void imprimirMes();
 void buscarDataAniversario();
-
-pessoa pessoas[100];
 
 int main(){
 
@@ -56,6 +57,7 @@ void menu(){
         case 6:
             buscarDataAniversario();
         default:
+            exit(0);
             printf("\nDigite um número válido!\n\n");
             menu();
             break;
@@ -73,10 +75,6 @@ void ler_string(char *s){
     scanf("%[^\n]s", s);
 }
 
-void print(char *s){
-    printf("%s\n", s);
-}
-
 void inserirPessoa(){
 
     pessoa nova;
@@ -84,7 +82,7 @@ void inserirPessoa(){
     flush_in();
     printf("Nome da Pessoa: ");
     ler_string(nova.nome);
-    print(nova.nome);
+    // print(nova.nome);
     flush_in();
     printf("E-mail: ");
     ler_string(nova.email);
@@ -123,6 +121,7 @@ void inserirPessoa(){
     ler_string(nova.telefone.codArea);
     flush_in();
     printf("Número: ");
+    ler_string(nova.telefone.numero);
     flush_in();
     printf("\n\tData de nascimento \n\n");
     printf("Dia: ");
@@ -137,7 +136,9 @@ void inserirPessoa(){
     printf("\n\tObservações: \n\n");
     ler_string(nova.obs);
 
-    printf("\n\tPessoa adicionada com sucesso--------\n\n");
+    inserir(nova);
+
+    printf("\n\t--------Pessoa adicionada com sucesso--------\n\n");
 
     menu();
 }
@@ -147,21 +148,74 @@ void removerPessoa(){
     flush_in();
     printf("Nome da pessoa a ser excluida da lista: ");
     ler_string(nome);
+    excluirPessoa(nome);
 
+    menu();
 }
 
 void imprimirAgenda(){
+    printf("\nImprimir:");
+    printf("\n\t1. Nome, Telefone e E-mail");
+    printf("\n\t2. Todos os dados\n\n");
+    int n;
+    flush_in();
+    scanf("%i",&n);
+    switch (n)
+    {
+    case 1:
+        exibir();
+        break;
+    case 2:
+        exibirTudo();
+        break;
 
+    default:
+        break;
+    }
+    printf("Aperte enter para outra operação.\n");
+    flush_in();
+    getchar();
+
+    menu();
 }
 
 void buscarPorNome(){
+    printf("Digite o nome q deseja buscar na lista: ");
+    flush_in();
+    char busca[100];
+    ler_string(busca);
+    buscaLista(busca);
 
+    menu();
 }
 
 void imprimirMes(){
+    printf("Digite o mês que quer imprimir o relatório de aniversariantes: ");
+    flush_in();
+    char n[4];
+    ler_string(n);
 
+    buscaMes(n);
+    printf("Aperte enter para outra operação.\n");
+    flush_in();
+    getchar();
+
+    menu();
 }
 
 void buscarDataAniversario(){
+    printf("Digite a data de aniversário a ser pesquisada: ");
+    flush_in();
+    char dia[4], mes[4], ano[4];
+    printf("Dia: ");
+    flush_in();
+    ler_string(dia);
+    printf("Mes: ");
+    flush_in();
+    ler_string(mes);
+    printf("Ano: ");
+    flush_in();
+    ler_string(ano);
 
+    menu();
 }
