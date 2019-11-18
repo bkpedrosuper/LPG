@@ -15,12 +15,13 @@ void buscarDataAniversario();
 
 int main(){
 
+    uploadData(pessoas);
     menu();
 
     return 0;
 }
 
-void menu(){    
+void menu(){
     printf("\nEscolha a ação desejada:\n\n");
     //item g
     printf("\t1.Inserir Pessoa.\n");
