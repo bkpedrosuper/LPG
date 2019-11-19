@@ -17,7 +17,7 @@ void saveData(pessoa *lista);
 
 void buscaMes(char *s){
     int i;
-    printf("Pessoas que nasceram no mes %s:\n", &s);
+    printf("Pessoas que nasceram no mes %s:\n", s);
     for (i=0; i<total; i++){
         if(pessoas[i].nascimento.mes==s){
             printDados(pessoas[i]);
@@ -76,19 +76,20 @@ char *lowercase(char *str){
 }
 
 void ordena(){
-    char aux2[100];
+    pessoa aux2;
+
     for(int i=0; i<total; i++){
-        int posj=i;
+        int posj = i;
+    
         for(int j=i; j<total; j++){
             if(strcoll(lowercase(pessoas[posj].nome), lowercase(pessoas[j].nome))>0){
-                print(lowercase(pessoas[posj].nome));
-                print(lowercase(pessoas[j].nome));
+
                 posj = j;
             }
         }
-        strcpy(aux2, pessoas[i].nome);
-        strcpy(pessoas[i].nome,pessoas[posj].nome);
-        strcpy(pessoas[posj].nome, aux2);
+        aux2 = pessoas[i];
+        pessoas[i] = pessoas[posj];
+        pessoas[posj] = aux2;
     }
     saveData(pessoas);
 }
@@ -120,11 +121,10 @@ void excluirPessoa(char *nome){
         }
     }
     int j;
-    pessoa aux;
+    total--;
     for(j=i; j<total-1; j++){
         pessoas[i] = pessoas[i+1];
     }
-    total--;
     saveData(pessoas);
 }
 
@@ -173,7 +173,7 @@ void printDados(pessoa printar){
 void uploadData(pessoa *lista){
     FILE *save;
     int i;
-    if((save=fopen("save.txt", "rb"))==NULL)  printf("Erro para carregar as informações\n");
+    if((save=fopen("save.txt", "r"))==NULL)  printf("Erro para carregar as informações\n");
     else{
         fread(&total,sizeof(int),1,save);
         fread(lista,sizeof(pessoa),total,save);
@@ -186,14 +186,13 @@ void saveData(pessoa *lista){
     FILE *save;
     int i;
     remove("save.txt");
-    if((save=fopen("save.txt", "wb"))==NULL)  printf("Erro para salvar as informações1\n");
+    if((save=fopen("save.txt", "w"))==NULL)  printf("Erro para salvar as informações1\n");
     else{
         fwrite(&total,sizeof(int),1,save);
         fwrite(lista,total*sizeof(pessoa),total,save);
         // fprintf(save,"%i",total);
         // fwrite(lista,sizeof(pessoa),total,save);
-        fclose(save);
-    
+        // fclose(save);
     }
     fclose(save);
 }

@@ -1,6 +1,6 @@
 from random import randint,random,randrange,choice
 
-numero_de_pessoas = 5
+numero_de_pessoas = 1
 
 vogais = [97,101,111,117]
 
