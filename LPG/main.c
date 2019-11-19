@@ -16,6 +16,7 @@ void buscarDataAniversario();
 int main(){
 
     uploadData(pessoas);
+    printf("%i", pessoas[0].id);
     menu();
 
     return 0;
@@ -66,9 +67,9 @@ void menu(){
 }
 
 // limpar o buffer do stdin
-void flush_in(){ 
+void flush_in(){
     int ch;
-    while( (ch = fgetc(stdin)) != EOF && ch != '\n' ){} 
+    while( (ch = fgetc(stdin)) != EOF && ch != '\n' ){}
 }
 
 // ler string
@@ -139,7 +140,7 @@ void inserirPessoa(){
 
     inserir(nova);
 
-    printf("\n\t--------Pessoa adicionada com sucesso--------\n\n");
+    printf("\n\tPessoa adicionada com sucesso--------\n\n");
 
     menu();
 }
@@ -149,15 +150,14 @@ void removerPessoa(){
     flush_in();
     printf("Nome da pessoa a ser excluida da lista: ");
     ler_string(nome);
-    excluirPessoa(nome);
+    saveData(pessoas);
 
-    menu();
 }
 
 void imprimirAgenda(){
     printf("\nImprimir:");
     printf("\n\t1. Nome, Telefone e E-mail");
-    printf("\n\t2. Todos os dados\n\n");
+    printf("\n\t2.Todos os dados\n\n");
     int n;
     flush_in();
     scanf("%i",&n);
@@ -167,7 +167,7 @@ void imprimirAgenda(){
         exibir();
         break;
     case 2:
-        exibirTudo();
+        exibir();
         break;
 
     default:
@@ -176,7 +176,6 @@ void imprimirAgenda(){
     printf("Aperte enter para outra operação.\n");
     flush_in();
     getchar();
-
     menu();
 }
 
@@ -186,8 +185,6 @@ void buscarPorNome(){
     char busca[100];
     ler_string(busca);
     buscaLista(busca);
-
-    menu();
 }
 
 void imprimirMes(){
@@ -195,13 +192,6 @@ void imprimirMes(){
     flush_in();
     char n[4];
     ler_string(n);
-
-    buscaMes(n);
-    printf("Aperte enter para outra operação.\n");
-    flush_in();
-    getchar();
-
-    menu();
 }
 
 void buscarDataAniversario(){
@@ -217,6 +207,4 @@ void buscarDataAniversario(){
     printf("Ano: ");
     flush_in();
     ler_string(ano);
-
-    menu();
 }

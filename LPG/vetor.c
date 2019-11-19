@@ -6,24 +6,12 @@ pessoa pessoas[100];
 int total = 0;
 
 void print(char *s);
-void buscaMes(char *s);
 void inserir(pessoa nova);
 void exibir();
+void saveData(pessoa *lista);
+void uploadData(pessoa *lista);
 void ordena();
 void printDados(pessoa printar);
-void printParcial(pessoa print);
-void uploadData(pessoa *lista);
-void saveData(pessoa *lista);
-
-void buscaMes(char *s){
-    int i;
-    printf("Pessoas que nasceram no mes %s:\n", &s);
-    for (i=0; i<total; i++){
-        if(pessoas[i].nascimento.mes==s){
-            printDados(pessoas[i]);
-        }
-    }
-}
 
 void print(char *s){
     printf("%s\n", s);
@@ -35,33 +23,26 @@ void inserir(pessoa nova){
     pessoas[total] = nova;
     total++;
     ordena();
-    saveData(pessoas);
-
 }
 
 void exibir(){
-
-    printf("\n\t-------------Lista Telefonica:-------------\n\n");
     int i;
-    for (i=0; i<total; i++){ 
-        printParcial(pessoas[i]);
+    for (i=0; i<total; i++){
+        printf("%d %s %s (%s) %s %s", pessoas[i].id,
+                                      pessoas[i].nome,
+                                      pessoas[i].telefone.codInternacional,
+                                      pessoas[i].telefone.codArea,
+                                      pessoas[i].telefone.numero,
+                                      pessoas[i].email);
     }
     printf("\n");
 }
 
-void printParcial(pessoa printar){
-    printf("%d %s %s (%s) %s %s\n", printar.id, 
-                                    printar.nome, 
-                                    printar.telefone.codInternacional, 
-                                    printar.telefone.codArea, 
-                                    printar.telefone.numero, 
-                                    printar.email);
-}
-
 void exibirTudo(){
     int i;
-    for (i=0; i<total; i++){ 
+    for (i=0; i<total; i++){
         printDados(pessoas[i]);
+        printf("\n");
     }
 }
 
@@ -82,7 +63,7 @@ void ordena(){
         for(int j=i; j<total; j++){
             if(strcoll(lowercase(pessoas[posj].nome), lowercase(pessoas[j].nome))>0){
                 print(lowercase(pessoas[posj].nome));
-                print(lowercase(pessoas[j].nome));
+                print(lowercase(pessoas[j].nome));//quero printar caraio
                 posj = j;
             }
         }
@@ -93,39 +74,13 @@ void ordena(){
     saveData(pessoas);
 }
 
-int buscaLista(char *nome){
-    int i,flag = 0;
-
-    printf("\n\tPessoas achadas com esse nome:\n\n");
+void buscaLista(char *busca){
+    int i;
     for (i=0; i<total; i++){
-        if(strcmp(lowercase(nome), lowercase(pessoas[i].nome))==0){
-            printParcial(pessoas[i]);
-            flag = 1;
+        if(strcmp(lowercase(busca), lowercase(pessoas[i].nome))==0){
+            printDados(pessoas[i]);
         }
     }
-    if (!flag){
-        printf("Pessoa não encontrada nos registros!\n");
-        return 0;
-    }
-}
-
-void excluirPessoa(char *nome){
-    int i,id_remover;
-    buscaLista(nome);
-    printf("Digite o id da pessoa a ser excluida\n");
-    scanf("%i", &id_remover);
-    for (i=0; i<total; i++){
-        if(pessoas[i].id==id_remover){
-            break;
-        }
-    }
-    int j;
-    pessoa aux;
-    for(j=i; j<total-1; j++){
-        pessoas[i] = pessoas[i+1];
-    }
-    total--;
-    saveData(pessoas);
 }
 
 void printDados(pessoa printar){
@@ -150,7 +105,7 @@ void printDados(pessoa printar){
     print(printar.endereco.estado);
     printf("País: ");
     print(printar.endereco.pais);
-    printf("\n\tTelefone \n\n");
+    printf("\n\tTelvoid saveData(pessoa *lista)efone \n\n");
     printf("Código Internacional: ");
     print(printar.telefone.codInternacional);
     printf("Código de área: ");
@@ -168,15 +123,33 @@ void printDados(pessoa printar){
     print(printar.obs);
 }
 
-
 //le os dados do arquivo
 void uploadData(pessoa *lista){
     FILE *save;
     int i;
-    if((save=fopen("save.txt", "rb"))==NULL)  printf("Erro para carregar as informações\n");
+    if((save=fopen("save.txt", "r+"))==NULL)  printf("Erro para carregar as informações\n");
     else{
         fread(&total,sizeof(int),1,save);
         fread(lista,sizeof(pessoa),total,save);
+        // for(i=0;i<total;i++){
+        //     fread(&lista[i].id, sizeof(int),1,save);
+        //     fread(lista[i].nome, 103*sizeof(char),1,save);
+        //     fread(lista[i].email, 103*sizeof(char),1,save);
+        //     fread(lista[i].endereco.rua, 103*sizeof(char),1,save);
+        //     fread(lista[i].endereco.complemento, 103*sizeof(char),1,save);
+        //     fread(lista[i].endereco.bairro, 103*sizeof(char),1,save);
+        //     fread(lista[i].endereco.cep, 103*sizeof(char),1,save);
+        //     fread(lista[i].endereco.cidade, 103*sizeof(char),1,save);
+        //     fread(lista[i].endereco.estado, 103*sizeof(char),1,save);
+        //     fread(lista[i].endereco.pais, 103*sizeof(char),1,save);
+        //     fread(lista[i].telefone.codInternacional, 103*sizeof(char),1,save);
+        //     fread(save, 103*sizeof(char),1,save);
+        //     fread(lista[i].telefone.codArea, 103*sizeof(char),1,save);
+        //     fread(lista[i].nascimento.dia, 103*sizeof(char),1,save);
+        //     fread(lista[i].nascimento.mes, 103*sizeof(char),1,save);
+        //     fread(lista[i].nascimento.ano, 103*sizeof(char),1,save);
+        //     fread(lista[i].obs, 103*sizeof(char),1,save);
+        // }
         fclose(save);
     }
 }
@@ -186,14 +159,12 @@ void saveData(pessoa *lista){
     FILE *save;
     int i;
     remove("save.txt");
-    if((save=fopen("save.txt", "wb"))==NULL)  printf("Erro para salvar as informações1\n");
-    else{
-        fwrite(&total,sizeof(int),1,save);
-        fwrite(lista,total*sizeof(pessoa),total,save);
-        // fprintf(save,"%i",total);
-        // fwrite(lista,sizeof(pessoa),total,save);
-        fclose(save);
-    
-    }
-    fclose(save);
+    // if((save=fopen("save.txt", "w+"))==NULL)  printf("Erro para salvar as informações1\n");
+    // else{
+    //     fprintf(save,"%i",total);
+    //     fwrite(lista,sizeof(pessoa),total,save);
+    //     fclose(save);
+    //
+    // }
+    // fclose(save);
 }
