@@ -191,9 +191,9 @@ void saveData(pessoa *lista){
         fwrite(&total,sizeof(int),1,save);
         fwrite(lista,total*sizeof(pessoa),total,save);
         // fprintf(save,"%i",total);
-        // fwrite(lista,sizeof(pessoa),total,save);
-        fclose(save);
-    
+        // fwrite(lista,sizeof(pessoa),total,save);    
     }
     fclose(save);
+
+    //teste
 }
