@@ -1,5 +1,4 @@
-
-// #include "struct.c"
+//include "struct.c"
 #include <time.h>
 
 pessoa pessoas[100];
@@ -12,15 +11,26 @@ void exibir();
 void ordena();
 void printDados(pessoa printar);
 void printParcial(pessoa print);
+void buscaMesDia(char *dia, char *mes);
 void uploadData(pessoa *lista);
 void saveData(pessoa *lista);
 
 void buscaMes(char *s){
     int i;
-    printf("Pessoas que nasceram no mes %s:\n", &s);
+    printf("Pessoas que nasceram no mes %s:\n", s);
     for (i=0; i<total; i++){
-        if(pessoas[i].nascimento.mes==s){
-            printDados(pessoas[i]);
+        if(strcmp(pessoas[i].nascimento.mes,s)==0){
+            printParcial(pessoas[i]);
+        }
+    }
+}
+
+void buscaMesDia(char *dia, char *mes){
+    int i;
+    printf("Pessoas que nasceram no mes %s e dia %s\n", mes, dia);
+    for (i=0; i<total; i++){
+        if(strcmp(pessoas[i].nascimento.mes,mes)==0 && strcmp(pessoas[i].nascimento.dia,dia)==0){
+            printParcial(pessoas[i]);
         }
     }
 }
@@ -35,7 +45,6 @@ void inserir(pessoa nova){
     pessoas[total] = nova;
     total++;
     ordena();
-    saveData(pessoas);
 
 }
 
@@ -76,29 +85,30 @@ char *lowercase(char *str){
 }
 
 void ordena(){
-    char aux2[100];
+    pessoa aux2;
+
     for(int i=0; i<total; i++){
-        int posj=i;
+        int posj = i;
+    
         for(int j=i; j<total; j++){
             if(strcoll(lowercase(pessoas[posj].nome), lowercase(pessoas[j].nome))>0){
-                print(lowercase(pessoas[posj].nome));
-                print(lowercase(pessoas[j].nome));
+
                 posj = j;
             }
         }
-        strcpy(aux2, pessoas[i].nome);
-        strcpy(pessoas[i].nome,pessoas[posj].nome);
-        strcpy(pessoas[posj].nome, aux2);
+        aux2 = pessoas[i];
+        pessoas[i] = pessoas[posj];
+        pessoas[posj] = aux2;
     }
     saveData(pessoas);
 }
 
-int buscaLista(char *nome){
+int buscaLista(char *nome, int tam){
     int i,flag = 0;
 
     printf("\n\tPessoas achadas com esse nome:\n\n");
     for (i=0; i<total; i++){
-        if(strcmp(lowercase(nome), lowercase(pessoas[i].nome))==0){
+        if(strncmp(lowercase(nome), lowercase(pessoas[i].nome), tam ) == 0){
             printParcial(pessoas[i]);
             flag = 1;
         }
@@ -110,21 +120,25 @@ int buscaLista(char *nome){
 }
 
 void excluirPessoa(char *nome){
-    int i,id_remover;
-    buscaLista(nome);
+    int i,id_remover,pos;
+    buscaLista(nome,strlen(nome));
     printf("Digite o id da pessoa a ser excluida\n");
     scanf("%i", &id_remover);
     for (i=0; i<total; i++){
         if(pessoas[i].id==id_remover){
+            pos=i;
             break;
         }
     }
     int j;
-    pessoa aux;
-    for(j=i; j<total-1; j++){
-        pessoas[i] = pessoas[i+1];
+    // printf("%s", pessoas[pos].nome);
+    for(j=pos; j<total-1; j++){
+        pessoas[j] = pessoas[j+1];
     }
     total--;
+    
+    printf("\n\t--------Pessoa removida com sucesso--------\n\n");
+
     saveData(pessoas);
 }
 
@@ -185,7 +199,7 @@ void uploadData(pessoa *lista){
 void saveData(pessoa *lista){
     FILE *save;
     int i;
-    remove("save.txt");
+    // remove("save.txt");
     if((save=fopen("save.txt", "wb"))==NULL)  printf("Erro para salvar as informações1\n");
     else{
         fwrite(&total,sizeof(int),1,save);
