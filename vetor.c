@@ -187,7 +187,7 @@ void printDados(pessoa printar){
 void uploadData(pessoa *lista){
     FILE *save;
     int i;
-    if((save=fopen("save.txt", "rb"))==NULL)  printf("Erro para carregar as informações\n");
+    if((save=fopen("save.txt", "r"))==NULL)  printf("Erro para carregar as informações\n");
     else{
         fread(&total,sizeof(int),1,save);
         fread(lista,sizeof(pessoa),total,save);
@@ -205,7 +205,6 @@ void saveData(pessoa *lista){
         fwrite(&total,sizeof(int),1,save);
         fwrite(lista,total*sizeof(pessoa),total,save);
         // fprintf(save,"%i",total);
-        // fwrite(lista,sizeof(pessoa),total,save);    
     }
     fclose(save);
 
