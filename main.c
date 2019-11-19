@@ -15,9 +15,10 @@ void buscarDataAniversario();
 
 int main(){
 
+    // remove("save.txt");
+
     uploadData(pessoas);
     menu();
-
     return 0;
 }
 
@@ -185,7 +186,10 @@ void buscarPorNome(){
     flush_in();
     char busca[100];
     ler_string(busca);
-    buscaLista(busca);
+    int n;
+    n = strlen(busca);
+    printf("%i", n);
+    buscaLista(busca, n);
 
     menu();
 }
@@ -205,18 +209,16 @@ void imprimirMes(){
 }
 
 void buscarDataAniversario(){
+    flush_in();
     printf("Digite a data de aniversário a ser pesquisada: ");
-    flush_in();
     char dia[4], mes[4], ano[4];
+    flush_in();
     printf("Dia: ");
-    flush_in();
     ler_string(dia);
+    flush_in();
     printf("Mes: ");
-    flush_in();
     ler_string(mes);
-    printf("Ano: ");
-    flush_in();
-    ler_string(ano);
+    buscaMesDia(mes,dia);
 
     menu();
 }
