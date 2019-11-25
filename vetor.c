@@ -27,7 +27,8 @@ void buscaMes(char *s){
 
 void buscaMesDia(char *dia, char *mes){
     int i;
-    printf("Pessoas que nasceram no mes %s e dia %s\n", mes, dia);
+    printf("Pessoas que nasceram no dia %s do mes %s\n", dia, mes);
+
     for (i=0; i<total; i++){
         if(strcmp(pessoas[i].nascimento.mes,mes)==0 && strcmp(pessoas[i].nascimento.dia,dia)==0){
             printParcial(pessoas[i]);
@@ -69,7 +70,8 @@ void printParcial(pessoa printar){
 
 void exibirTudo(){
     int i;
-    for (i=0; i<total; i++){ 
+    for (i=0; i<total; i++){
+        printf("\n\n\tDados de %s:\n\n", pessoas[i].nome);
         printDados(pessoas[i]);
     }
 }
@@ -124,12 +126,14 @@ void excluirPessoa(char *nome){
     buscaLista(nome,strlen(nome));
     printf("Digite o id da pessoa a ser excluida\n");
     scanf("%i", &id_remover);
+    
     for (i=0; i<total; i++){
         if(pessoas[i].id==id_remover){
             pos=i;
             break;
         }
     }
+    
     int j;
     // printf("%s", pessoas[pos].nome);
     for(j=pos; j<total-1; j++){

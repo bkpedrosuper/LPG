@@ -218,7 +218,7 @@ void buscarDataAniversario(){
     flush_in();
     printf("Mes: ");
     ler_string(mes);
-    buscaMesDia(mes,dia);
+    buscaMesDia(dia,mes);
 
     menu();
 }
