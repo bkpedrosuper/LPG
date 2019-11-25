@@ -115,11 +115,13 @@ void excluirPessoa(char *nome){
     buscaLista(nome);
     printf("Digite o id da pessoa a ser excluida\n");
     scanf("%i", &id_remover);
+    
     for (i=0; i<total; i++){
         if(pessoas[i].id==id_remover){
             break;
         }
     }
+    
     int j;
     total--;
     for(j=i; j<total-1; j++){
